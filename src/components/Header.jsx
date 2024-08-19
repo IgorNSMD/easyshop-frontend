@@ -1,14 +1,19 @@
 import React from 'react';
 import { MdEmail } from "react-icons/md";
 import { IoMdPhonePortrait } from "react-icons/io";
-import { FaFacebookF } from "react-icons/fa";
+import { FaFacebookF, FaLock, FaUser } from "react-icons/fa";
 import { FaTwitter } from "react-icons/fa6";
 import { FaLinkedin } from "react-icons/fa";
 import { FaGithub } from "react-icons/fa";
 import { IoMdArrowDropdown } from "react-icons/io";
+import { Link } from 'react-router-dom';
 
+ 
 
 const Header = () => {
+
+    const user = true
+
     return (
         <div className='w-full bg-white'>
             <div className='header-top bg-[#caddff] md-lg:hidden'>
@@ -25,6 +30,7 @@ const Header = () => {
                                 <span>+(123) 3243 343</span>
                             </li> 
                         </ul>
+
                         <div>
                             <div className='flex justify-center items-center gap-10'>
                                 <div className='flex justify-center items-center gap-4 text-black'>
@@ -37,10 +43,19 @@ const Header = () => {
                                     <img src="http://localhost:3000/images/language.png" alt="" />
                                     <span><IoMdArrowDropdown /></span>
                                     <ul className='absolute invisible transition-all top-12 rounded-sm duration-200 text-white p-2 w-[100px] flex flex-col gap-3 group-hover:visible group-hover:top-6 group-hover:bg-black z-10'>
-                                        <li>Hindi</li>
-                                        <li>English</li>
+                                    <li>Hindi</li>
+                                    <li>English</li>
                                     </ul>
                                 </div>
+                                {
+                                    user ? <Link className='flex cursor-pointer justify-center items-center gap-2 text-sm text-black' to='/dashboard'>
+                                        <span> <FaUser/> </span>
+                                        <span>Kazi Ariyan </span>
+                                        </Link> : <Link className='flex cursor-pointer justify-center items-center gap-2 text-sm text-black' to='/login'>
+                                        <span> <FaLock /> </span>
+                                        <span>Login </span>
+                                        </Link>
+                                }
                             </div>
                         </div>
                     </div>
