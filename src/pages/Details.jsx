@@ -8,8 +8,12 @@ import { FaFacebookF} from "react-icons/fa";
 import { FaTwitter } from "react-icons/fa6";
 import { FaLinkedin } from "react-icons/fa";
 import { FaGithub } from "react-icons/fa";
+import 'swiper/css'; 
+import 'swiper/css/pagination';
+import {Swiper, SwiperSlide } from 'swiper/react';
 
 import Rating from '../components/Rating';
+import {Pagination } from 'swiper/modules';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import Reviews from '../components/Reviews';
@@ -94,6 +98,7 @@ const Details = () => {
                             <div className='p-5 border'>
                                 <img className='h-[400px] w-full' src={image ? `http://localhost:3000/images/products/${image}.webp` : `http://localhost:3000/images/products/${images[2]}.webp`} alt="" />
                             </div>
+
                             <div className='py-3'>
                                 {
                                     images && 
@@ -135,7 +140,6 @@ const Details = () => {
                                     <>
                                         Price : <h2 className='line-through'>$500</h2>
                                         <h2>${500 - Math.floor((500 * discount) / 100)} (-{discount}%) </h2>
-                
                                     </> : <h2> Price : $200 </h2>
                                 }
                             </div> 
@@ -189,7 +193,6 @@ const Details = () => {
                                             <a className='w-[38px] h-[38px] hover:bg-[#059473] hover:text-white flex justify-center items-center bg-blue-500 rounded-full text-white' href="#"> <FaGithub /> </a>
                                         </li>
                                     </ul> 
-
                                 </div>
                             </div>
 
@@ -206,7 +209,6 @@ const Details = () => {
                 </div> 
             </section>
 
-
             <section>
                 <div className='w-[85%] md:w-[80%] sm:w-[90%] lg:w-[90%] h-full mx-auto pb-16'>
                     <div className='flex flex-wrap'>
@@ -219,9 +221,9 @@ const Details = () => {
 
                                 <div>
                                     {
-                                        state === 'reviews' ? 
-                                        <Reviews/> :
-                                         <p className='py-5 text-slate-600'>
+                                        state === 'reviews' 
+                                        ? <Reviews/> 
+                                        : <p className='py-5 text-slate-600'>
                                             What is Lorem Ipsum?
                                             Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
                                         </p>
@@ -237,16 +239,17 @@ const Details = () => {
                                 </div>
                                 <div className='flex flex-col gap-5 mt-3 border p-3'>
                                     {
-                                        [1,2,3].map((p,i) => {
+                                        [1,2,3].map((p,i) => 
+                                        {
                                             return (
                                                 <Link className='block'>
                                                     <div className='relative h-[270px]'>
                                                         <img className='w-full h-full' src={`http://localhost:3000/images/products/${p}.webp`} alt="" /> 
                                                         {
-                                                            discount !== 0 && 
-                                                            <div className='flex justify-center items-center absolute text-white w-[38px] h-[38px] rounded-full bg-red-500 font-semibold text-xs left-2 top-2'>
-                                                                {discount}%
-                                                            </div>
+                                                        discount !== 0 && 
+                                                        <div className='flex justify-center items-center absolute text-white w-[38px] h-[38px] rounded-full bg-red-500 font-semibold text-xs left-2 top-2'>
+                                                            {discount}%
+                                                        </div>
                                                         }
                                                     </div>
 
@@ -257,15 +260,71 @@ const Details = () => {
                                                             <Rating ratings={4.5}  />
                                                         </div>
                                                     </div>
-            
                                                 </Link>
                                             )
                                         })
                                     }
                                 </div>
                             </div>
-                        </div>
-                    </div> 
+                        </div> 
+
+                    </div>  
+                </div>
+            </section>
+
+            <section>
+                <div className='w-[85%] md:w-[80%] sm:w-[90%] lg:w-[90%] h-full mx-auto'>
+                    <h2 className='text-2xl py-8 text-slate-600'>Related Products </h2>
+                    <div>
+                        <Swiper
+                            slidesPerView='auto'
+                            breakpoints={{
+                                1280 : {
+                                    slidesPerView: 3
+                                },
+                                565 : {
+                                    slidesPerView: 2
+                                }
+                            }}
+                            spaceBetween={25}
+                            loop={true}
+                            pagination={{
+                                clickable: true,
+                                el: '.custom_bullet'
+                            }}
+                            modules={[Pagination]}
+                            className='mySwiper' 
+                        > 
+
+            {
+                [1,2,3,4,5,6].map((p, i) => {
+                    return (
+
+                        <SwiperSlide key={i}>
+                            <Link className='block'>
+                                <div className='relative h-[270px]'>
+                                    <div className='w-full h-full'>
+                            <img src={`http://localhost:3000/images/products/${p}.webp`} alt="" />
+                            <div className='absolute h-full w-full top-0 left-0 bg-[#000] opacity-25 hover:opacity-50 transition-all duration-500'> 
+                            </div>
+                                </div>
+                    {
+                    discount !== 0 && <div className='flex justify-center items-center absolute text-white w-[38px] h-[38px] rounded-full bg-red-500 font-semibold text-xs left-2 top-2'>{discount}%
+                    </div>
+                    }
+
+
+                                </div>
+                            </Link>
+
+                        </SwiperSlide>
+
+                    )
+                })
+            }
+            
+                        </Swiper>
+                    </div>
                 </div>
             </section>
 
