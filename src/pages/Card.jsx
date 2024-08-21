@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { IoIosArrowForward } from "react-icons/io";
 
 import Header from '../components/Header';
@@ -8,8 +8,20 @@ import Footer from '../components/Footer';
 
 const Card = () => {
 
+    const navigate = useNavigate()
     const card_products = [1,2]
     const outOfStockProduct = [1,2]
+
+    const redirect = () => {
+        navigate('/shipping',{
+            state: {
+                products : [],
+                price: 500,
+                shipping_fee : 40,
+                items: 2
+            }
+        })
+    }
 
     return (
         <div>
@@ -149,7 +161,7 @@ const Card = () => {
                                                 <span>Total</span>
                                                 <span className='text-lg text-[#059473]'>$430 </span>
                                             </div>
-                                            <button className='px-5 py-[6px] rounded-sm hover:shadow-red-500/50 hover:shadow-lg bg-red-500 text-sm text-white uppercase '>
+                                            <button onClick={redirect} className='px-5 py-[6px] rounded-sm hover:shadow-red-500/50 hover:shadow-lg bg-red-500 text-sm text-white uppercase '>
                                                 Process to Checkout 
                                             </button>
 
