@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { IoIosArrowForward } from "react-icons/io"; 
 import Carousel from 'react-multi-carousel'; 
 import 'react-multi-carousel/lib/styles.css'
+import { FaHeart } from "react-icons/fa6";
 
 import Rating from '../components/Rating';
 import Header from '../components/Header';
@@ -89,25 +90,28 @@ const Details = () => {
                             </div>
                             <div className='py-3'>
                                 {
-                                images && 
-                                <Carousel
-                                    autoPlay={true}
-                                    infinite={true} 
-                                    responsive={responsive}
-                                    transitionDuration={500}>
-                                    {
-                                        images.map((img, i) => {
-                                            return (
-                                                <div key={i}  onClick={() => setImage(img)}>
-                                                    <img className='h-[120px] cursor-pointer' src={`http://localhost:3000/images/products/${img}.webp`} alt="" /> 
-                                                </div>
-                                                )
-                                        })
-                                    }
-                                </Carousel>
+                                    images && 
+                                    <Carousel
+                                        autoPlay={true}
+                                        infinite={true} 
+                                        responsive={responsive}
+                                        transitionDuration={500}
+                                    >
+                                        {
+                                            images.map((img, i) => {
+                                                return (
+                                                    <div key={i}  onClick={() => setImage(img)}>
+                                                        <img className='h-[120px] cursor-pointer' src={`http://localhost:3000/images/products/${img}.webp`} alt="" /> 
+                                                    </div>
+                                                    )
+                                            })
+                                        }
+
+                                    </Carousel>
                                 }
                             </div>    
                         </div>
+
                         <div className='flex flex-col gap-5'>
                             <div className='text-3xl text-slate-600 font-bold'>
                                 <h3>Product Name </h3>
@@ -120,22 +124,51 @@ const Details = () => {
                             </div>
 
                             <div className='text-2xl text-red-500 font-bold flex gap-3'>
-                            {
-                                discount !== 0 ? 
-                                <>
-                                    Price : <h2 className='line-through'>$500</h2>
-                                    <h2>${500 - Math.floor((500 * discount) / 100)} (-{discount}%) </h2>
-                
-                                </> : 
-                                <h2> Price : $200 </h2>
-                            }
-                        </div>       
+                                {
+                                    discount !== 0 ? 
+                                    <>
+                                        Price : <h2 className='line-through'>$500</h2>
+                                        <h2>${500 - Math.floor((500 * discount) / 100)} (-{discount}%) </h2>
+                    
+                                    </> : 
+                                        <h2> Price : $200 </h2>
+                                }
+                            </div> 
 
+                            <div className='text-slate-600'>
+                                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley</p>
+                            </div> 
+
+                            <div className='flex gap-3 pb-10 border-b'>
+                                {
+                                    stock ? 
+                                    <>
+                                        <div className='flex bg-slate-200 h-[50px] justify-center items-center text-xl'>
+                                            <div className='px-6 cursor-pointer'>-</div>
+                                            <div className='px-6'>2</div>
+                                            <div className='px-6 cursor-pointer'>+</div>
+                                        </div>
+                                        <div>
+                                            <button className='px-8 py-3 h-[50px] cursor-pointer hover:shadow-lg hover:shadow-green-500/40 bg-[#059473] text-white'>Add To Card</button>
+                                        </div>
+                        
+                                    </> : ''
+                                }
+                            <div>
+                            <div className='h-[50px] w-[50px] flex justify-center items-center cursor-pointer hover:shadow-lg hover:shadow-cyan-500/40 bg-cyan-500 text-white'>
+                                <FaHeart />
+                            </div>
 
                         </div>
+
+
+
+                            </div>  
+                        </div> 
                     </div> 
                 </div> 
             </section>
+
             <Footer/> 
         </div>
     );
