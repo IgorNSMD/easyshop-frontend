@@ -12,7 +12,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import Products from '../components/products/Products';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
-//import ShopProducts from '../components/products/ShopProducts';
+import ShopProducts from '../components/products/ShowProducts'
 import Pagination from '../components/Pagination';
 import { price_range_product } from '../store/reducers/homeReducer';
 
@@ -152,7 +152,7 @@ const Shops = () => {
                         </div>
         
                         <div className='py-5 flex flex-col gap-4 md:hidden'>
-                            {/* <Products title='Latest Product' /> */}
+                            <Products title='Latest Product' />
                         </div> 
                     </div>
 
@@ -178,7 +178,7 @@ const Shops = () => {
                             </div> 
 
                             <div className='pb-8'>
-                                    {/* <ShopProducts styles={styles} />   */}
+                                <ShopProducts styles={styles} />  
                             </div>
 
                             <div>
