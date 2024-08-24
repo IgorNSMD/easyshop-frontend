@@ -1,36 +1,39 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { IoIosArrowForward } from "react-icons/io";
 import { Range } from 'react-range';
 import {AiFillStar} from 'react-icons/ai'
 import {CiStar} from 'react-icons/ci' 
-import Products from '../components/products/Products';
 import {BsFillGridFill} from 'react-icons/bs'
 import {FaThList} from 'react-icons/fa'
+import { useDispatch, useSelector } from 'react-redux';
 
+
+import Products from '../components/products/Products';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
-import ShopProducts from '../components/products/ShowProducts';
+//import ShopProducts from '../components/products/ShopProducts';
 import Pagination from '../components/Pagination';
+import { price_range_product } from '../store/reducers/homeReducer';
 
 const Shops = () => {
-    const [filter, setFilter] = useState(true)
-    const categorys = [
-        'Mobiles',
-        'Laptops',
-        'Speakers',
-        'Top wear',
-        'Footwear',
-        'Watches',
-        'Home Decor',
-        'Smart Watches'
-    ]
+
+    const dispatch = useDispatch()
+    const {categorys} = useSelector(state => state.home)
+
+    useEffect(() => { 
+        dispatch(price_range_product())
+    },[dispatch])
+
+    const [filter, setFilter] = useState(true) 
 
     const [state, setState] = useState({values: [50, 1500]})
     const [rating, setRating] = useState('')
     const [styles, setStyles] = useState('grid')
+
     const [parPage, setParPage] = useState(1)
     const [pageNumber, setPageNumber] = useState(1)
+
 
     return (
         <div>
@@ -63,16 +66,17 @@ const Shops = () => {
                         <h2 className='text-3xl font-bold mb-3 text-slate-600'>Category </h2>
                         <div className='py-2'>
                             {
-                                categorys.map((c,i) => <div className='flex justify-start items-center gap-2 py-1'>
-                                    <input type="checkbox" id={c} />
-                                    <label className='text-slate-600 block cursor-pointer' htmlFor={c}>{c}</label>
-                                </div>)
+                            categorys.map((c,i) => 
+                            <div key={i} className='flex justify-start items-center gap-2 py-1'>
+                                <input type="checkbox" id={c.name} />
+                                <label className='text-slate-600 block cursor-pointer' htmlFor={c.name}>{c.name}</label>
+                            </div>)
                             }
                         </div>
 
                         <div className='py-2 flex flex-col gap-5'>
                             <h2 className='text-3xl font-bold mb-3 text-slate-600'>Price</h2>
-                            
+             
                             <Range
                                 step={5}
                                 min={50}
@@ -86,12 +90,12 @@ const Shops = () => {
                                 )}
                                 renderThumb={({ props }) => (
                                     <div className='w-[15px] h-[15px] bg-[#059473] rounded-full' {...props} />
-                    
                                 )} 
                             />  
-                        <div>
-                        <span className='text-slate-800 font-bold text-lg'>${Math.floor(state.values[0])} - ${Math.floor(state.values[1])}</span>  
-                        </div>
+
+                            <div>
+                                <span className='text-slate-800 font-bold text-lg'>${Math.floor(state.values[0])} - ${Math.floor(state.values[1])}</span>  
+                            </div>
                         </div>
 
                         <div className='py-3 flex flex-col gap-4'>
@@ -146,9 +150,9 @@ const Shops = () => {
                                 </div> 
                             </div> 
                         </div>
-            
+        
                         <div className='py-5 flex flex-col gap-4 md:hidden'>
-                             {/* <Products title='Latest Product' /> */}
+                            {/* <Products title='Latest Product' /> */}
                         </div> 
                     </div>
 
@@ -174,15 +178,17 @@ const Shops = () => {
                             </div> 
 
                             <div className='pb-8'>
-                                <ShopProducts styles={styles} />  
+                                    {/* <ShopProducts styles={styles} />   */}
                             </div>
+
                             <div>
                                 <Pagination pageNumber={pageNumber} setPageNumber={setPageNumber} totalItem={10} parPage={parPage} showItem={Math.floor(10 / 3 )} />
                             </div>
-                            
+
                         </div> 
                     </div>  
                 </div>
+                
             </div> 
            </section>
 

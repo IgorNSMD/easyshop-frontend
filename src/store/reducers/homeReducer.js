@@ -1,5 +1,4 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-
 import api from "../../api/api";
 
 
@@ -8,7 +7,7 @@ export const get_category = createAsyncThunk(
     async(_, { fulfillWithValue }) => {
         try {
             const {data} = await api.get('/home/get-categorys')
-            //console.log(data)
+            // console.log(data)
             return fulfillWithValue(data)
         } catch (error) {
             console.log(error.respone)
@@ -16,7 +15,6 @@ export const get_category = createAsyncThunk(
     }
 )
 // End Method 
-
 export const get_products = createAsyncThunk(
     'product/get_products',
     async(_, { fulfillWithValue }) => {
@@ -31,6 +29,24 @@ export const get_products = createAsyncThunk(
 )
 // End Method 
 
+
+export const price_range_product = createAsyncThunk(
+    'product/price_range_product',
+    async(_, { fulfillWithValue }) => {
+        try {
+            const {data} = await api.get('/home/price-range-latest-product')
+             console.log(data)
+            return fulfillWithValue(data)
+        } catch (error) {
+            console.log(error.respone)
+        }
+    }
+)
+// End Method 
+
+
+
+
 export const homeReducer = createSlice({
     name: 'home',
     initialState:{
@@ -44,7 +60,6 @@ export const homeReducer = createSlice({
  
     },
     extraReducers: (builder) => {
-
         builder
         .addCase(get_category.fulfilled, (state, { payload }) => {
             state.categorys = payload.categorys;
