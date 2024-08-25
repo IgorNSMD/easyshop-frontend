@@ -11,7 +11,8 @@ export const customer_register = createAsyncThunk(
             // console.log(data)
             return fulfillWithValue(data)
         } catch (error) {
-            console.log(error.respone)
+            //console.log(error.respone)
+            return rejectWithValue(error.response.data)
         }
     }
 )
