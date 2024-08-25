@@ -16,11 +16,12 @@ import ShowProducts from '../components/products/ShowProducts';
 import Pagination from '../components/Pagination';
 import { price_range_product,query_products } from '../store/reducers/homeReducer';
 
-const CategoryShop = () => {
+const SearchProducts = () => {
 
     let [searchParams, setSearchParams] = useSearchParams()
     const category = searchParams.get('category')
-    console.log(category)
+    const searchValue = searchParams.get('value')
+     
 
     const dispatch = useDispatch()
     const {products,categorys,priceRange,latest_product,totalProduct,parPage} = useSelector(state => state.home)
@@ -28,7 +29,6 @@ const CategoryShop = () => {
     useEffect(() => { 
         dispatch(price_range_product())
     },[dispatch])
-
     useEffect(() => { 
         setState({
             values: [priceRange.low, priceRange.high]
@@ -54,10 +54,11 @@ const CategoryShop = () => {
                 category,
                 rating,
                 sortPrice,
-                pageNumber
+                pageNumber,
+                searchValue
             })
          )
-    },[state.values, category, rating, sortPrice, pageNumber, dispatch])
+    },[state.values, category, rating, sortPrice, searchValue, pageNumber, dispatch])
 
     const resetRating = () => {
         setRating('')
@@ -193,7 +194,7 @@ const CategoryShop = () => {
                                         <option value="low-to-high">Low to High Price</option>
                                         <option value="high-to-low">High to Low Price </option>
                                     </select>
-                                    <div className='flex justify-center items-start gap-4 md-lg:hidden'>
+                                    <div   div className='flex justify-center items-start gap-4 md-lg:hidden'>
                                         <div onClick={()=> setStyles('grid')} className={`p-2 ${styles === 'grid' && 'bg-slate-300'} text-slate-600 hover:bg-slate-300 cursor-pointer rounded-sm `} >
                                             <BsFillGridFill/>  
                                         </div>
@@ -209,9 +210,9 @@ const CategoryShop = () => {
                             </div>
 
                             <div>
-                            {
-                                totalProduct > parPage &&  <Pagination pageNumber={pageNumber} setPageNumber={setPageNumber} totalItem={totalProduct} parPage={parPage} showItem={Math.floor(totalProduct / parPage )} />
-                            }
+                                {
+                                    totalProduct > parPage &&  <Pagination pageNumber={pageNumber} setPageNumber={setPageNumber} totalItem={totalProduct} parPage={parPage} showItem={Math.floor(totalProduct / parPage )} />
+                                }
                             </div>
                         </div> 
                     </div>  
@@ -224,4 +225,4 @@ const CategoryShop = () => {
     );
 };
 
-export default CategoryShop;
+export default SearchProducts;
