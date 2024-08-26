@@ -35,6 +35,16 @@ const Login = () => {
         dispatch(customer_login(state))
     }
 
+    useEffect(() => { 
+        if (successMessage) {
+            toast.success(successMessage)
+            dispatch(messageClear())  
+        } 
+        if (errorMessage) {
+            toast.error(errorMessage)
+            dispatch(messageClear())  
+        } 
+    },[ successMessage, errorMessage, dispatch])
 
     return (
         <div>
