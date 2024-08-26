@@ -1,4 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { jwtDecode } from "jwt-decode";
 
 import api from "../../api/api";
 
@@ -33,11 +34,21 @@ export const customer_login = createAsyncThunk(
 )
 // End Method 
 
+const decodeToken = (token) => {
+    if (token) {
+        const userInfo = jwtDecode(token)
+        return userInfo
+    } else {
+        return ''
+    }
+}
+// End Method 
+
 export const authReducer = createSlice({
     name: 'auth',
     initialState:{
         loader : false,
-        userInfo : '',
+        userInfo : decodeToken(localStorage.getItem('customerToken')),
         errorMessage : '',
         successMessage: '', 
     },
@@ -62,7 +73,7 @@ export const authReducer = createSlice({
             state.successMessage = payload.message;
             state.loader = false;
         })
-        
+
         .addCase(customer_login.pending, (state, { payload }) => {
             state.loader = true;
         })

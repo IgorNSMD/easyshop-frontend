@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { FaFacebookF } from "react-icons/fa6";
 import { FaGoogle } from "react-icons/fa6"; 
-import { Link } from 'react-router-dom';
+import { Link, useNavigate  } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import toast from 'react-hot-toast';
 import { FadeLoader } from 'react-spinners';
@@ -12,7 +12,8 @@ import { customer_register,messageClear } from '../store/reducers/authReducer';
 
 const Register = () => {
 
-    const {loader,errorMessage,successMessage } = useSelector(state => state.auth)
+    const {loader, errorMessage, successMessage, userInfo } = useSelector(state => state.auth)
+    const navigate = useNavigate()
 
     const [state, setState] = useState({
         name: '',
@@ -43,8 +44,11 @@ const Register = () => {
         if (errorMessage) {
             toast.error(errorMessage)
             dispatch(messageClear())  
+        }
+        if (userInfo) {
+            navigate('/')
         } 
-    },[ successMessage, errorMessage, dispatch])
+    },[ successMessage, errorMessage, dispatch, navigate, userInfo])
 
     return (
         <div>

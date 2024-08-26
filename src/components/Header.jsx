@@ -17,6 +17,7 @@ const Header = () => {
  
     const navigate = useNavigate()
     const {categorys} = useSelector(state => state.home) 
+    const {userInfo} = useSelector(state => state.auth) 
 
     const {pathname} = useLocation()
      
@@ -67,10 +68,10 @@ const Header = () => {
                                     </ul>
                                 </div>
                                 {
-                                    user ? 
+                                    userInfo  ? 
                                     <Link className='flex cursor-pointer justify-center items-center gap-2 text-sm text-black' to='/dashboard'>
                                         <span> <FaUser/> </span>
-                                        <span>Kazi Ariyan </span>
+                                        <span>{userInfo.name}</span>
                                     </Link> : 
                                      <Link to='/login' className='flex cursor-pointer justify-center items-center gap-2 text-sm text-black'>
                                         <span> <FaLock /> </span>
@@ -159,15 +160,15 @@ const Header = () => {
                                 <img src="http://localhost:3000/images/language.png" alt="" />
                                 <span><IoMdArrowDropdown /></span>
                                 <ul className='absolute invisible transition-all top-12 rounded-sm duration-200 text-white p-2 w-[100px] flex flex-col gap-3 group-hover:visible group-hover:top-6 group-hover:bg-black z-10'>
-                                    <li>Hindi</li>
+                                    <li>Spanish</li>
                                     <li>English</li>
                                 </ul>
                             </div>
                             {
-                                user ? 
+                                userInfo ? 
                                 <Link className='flex cursor-pointer justify-center items-center gap-2 text-sm text-black' to='/dashboard'>
                                     <span> <FaUser/> </span>
-                                    <span>Kazi Ariyan </span>
+                                    <span>{ userInfo.name }</span>
                                 </Link> : 
                                 <Link className='flex cursor-pointer justify-center items-center gap-2 text-sm text-black' to='/login'>
                                     <span> <FaLock /> </span>
