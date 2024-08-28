@@ -6,7 +6,7 @@ import toast from 'react-hot-toast';
 
 import Header from '../components/Header';
 import Footer from '../components/Footer';
-import { get_card_products,delete_card_product, messageClear } from '../store/reducers/cardReducer';
+import { get_card_products,delete_card_product,messageClear, quantity_inc } from '../store/reducers/cardReducer';
 
 const Card = () => {
 
@@ -39,6 +39,13 @@ const Card = () => {
         } 
 
     },[dispatch, userInfo.id, successMessage])
+
+    const inc = (quantity, stock, card_id) => {
+        const temp = quantity + 1;
+        if (temp <= stock) {
+            dispatch(quantity_inc(card_id))
+        }
+    }
 
     return (
         <div>
@@ -100,7 +107,7 @@ const Card = () => {
                                                                 <div className='flex bg-slate-200 h-[30px] justify-center items-center text-xl'>
                                                                     <div className='px-3 cursor-pointer'>-</div> 
                                                                     <div className='px-3'>{pt.quantity }</div> 
-                                                                    <div className='px-3 cursor-pointer'>+</div> 
+                                                                    <div onClick={() => inc(pt.quantity,pt.productInfo.stock, pt._id )} className='px-3 cursor-pointer'>+</div> 
                                                                 </div>
                                                                 <button onClick={() => dispatch(delete_card_product(pt._id)) } className='px-5 py-[3px] bg-red-500 text-white'>Delete</button>
                                                             </div>
