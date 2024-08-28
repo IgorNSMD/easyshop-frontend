@@ -1,16 +1,24 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { IoIosArrowForward } from "react-icons/io";
+import { useDispatch, useSelector } from 'react-redux';
 
 import Header from '../components/Header';
 import Footer from '../components/Footer';
-
+import { get_card_products } from '../store/reducers/cardReducer';
 
 const Card = () => {
+
+    const dispatch = useDispatch()
+    const { userInfo } = useSelector(state => state.auth) 
 
     const navigate = useNavigate()
     const card_products = [1,2]
     const outOfStockProduct = [1,2]
+
+    useEffect(() => {
+        dispatch(get_card_products(userInfo.id))
+    },[dispatch, userInfo.id])
 
     const redirect = () => {
         navigate('/shipping',{
