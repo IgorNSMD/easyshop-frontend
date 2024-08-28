@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { FaEye, FaRegHeart } from "react-icons/fa";
 import { RiShoppingCartLine } from "react-icons/ri";
 import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch,useSelector } from 'react-redux';
+import toast from 'react-hot-toast';
 
-import { add_to_card } from '../../store/reducers/cardReducer';
+import { add_to_card, messageClear } from '../../store/reducers/cardReducer';
 
 import Rating from '../Rating';
 
@@ -13,7 +14,8 @@ const FeatureProducts = ({products}) => {
 
     const navigate = useNavigate()
     const dispatch = useDispatch()
-    const {userInfo } = useSelector(state => state.auth)
+    const { userInfo } = useSelector(state => state.auth)
+    const { errorMessage, successMessage } = useSelector(state => state.card)
 
     const add_card = (id) => {
         if (userInfo) {
@@ -26,6 +28,18 @@ const FeatureProducts = ({products}) => {
             navigate('/login')
         }
     }
+
+    useEffect(() => { 
+        if (successMessage) {
+            toast.success(successMessage)
+            dispatch(messageClear())  
+        } 
+        if (errorMessage) {
+            toast.error(errorMessage)
+            dispatch(messageClear())  
+        } 
+
+    },[ successMessage, errorMessage, dispatch])
 
     return (
         <div className='w-[85%] flex flex-wrap mx-auto'>
@@ -48,13 +62,13 @@ const FeatureProducts = ({products}) => {
                             }
                             <img className='sm:w-full w-full h-[240px]' src={p.images[0]} alt="" />
                             <ul className='flex transition-all duration-700 -bottom-10 justify-center items-center gap-2 absolute w-full group-hover:bottom-3'>
-                                <li onClick={() => add_card(p._id)} className='w-[38px] h-[38px] cursor-pointer bg-white flex justify-center items-center rounded-full hover:bg-[#059473] hover:text-white hover:rotate-[720deg] transition-all'>
+                                <li className='w-[38px] h-[38px] cursor-pointer bg-white flex justify-center items-center rounded-full hover:bg-[#059473] hover:text-white hover:rotate-[720deg] transition-all'>
                                     <FaRegHeart />
                                 </li>
                                 <Link to='/product/details/new' className='w-[38px] h-[38px] cursor-pointer bg-white flex justify-center items-center rounded-full hover:bg-[#059473] hover:text-white hover:rotate-[720deg] transition-all'>
                                     <FaEye />
                                 </Link>
-                                <li className='w-[38px] h-[38px] cursor-pointer bg-white flex justify-center items-center rounded-full hover:bg-[#059473] hover:text-white hover:rotate-[720deg] transition-all'>
+                                <li onClick={() => add_card(p._id)} className='w-[38px] h-[38px] cursor-pointer bg-white flex justify-center items-center rounded-full hover:bg-[#059473] hover:text-white hover:rotate-[720deg] transition-all'>
                                     <RiShoppingCartLine />
                                 </li>
                             </ul>
