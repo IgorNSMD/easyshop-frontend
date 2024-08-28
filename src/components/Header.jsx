@@ -138,7 +138,7 @@ const Header = () => {
                                             </div>
                                         </div>
 
-                                        <div className='relative flex justify-center items-center cursor-pointer w-[35px] h-[35px] rounded-full bg-[#e2e2e2]'>
+                                        <div onClick={redirect_card_page} className='relative flex justify-center items-center cursor-pointer w-[35px] h-[35px] rounded-full bg-[#e2e2e2]'>
                                             <span className='text-xl text-green-500'><FaCartShopping  /></span>
                                             {
                                                 card_product_count !== 0 && 
