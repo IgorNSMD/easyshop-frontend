@@ -14,6 +14,8 @@ import { get_category } from './store/reducers/homeReducer';
 import CategoryShop from './pages/CategoryShop';
 import SearchProducts from './pages/SearchProducts';
 import Payment from './pages/Payment';
+import Dashboard from './pages/Dashboard';
+import ProtectUser from './utils/ProyectUser';
 
 function App() {
   
@@ -25,7 +27,8 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path='/' element={<Home /> } />
+
+        <Route path='/' element={<Home/>} />
         <Route path='/login' element={<Login/>} />
         <Route path='/register' element={<Register/>} />
         <Route path='/shops' element={<Shops/>} />
@@ -35,6 +38,13 @@ function App() {
         <Route path='/products?' element={<CategoryShop/>} />
         <Route path='/products/search?' element={<SearchProducts/>} />
         <Route path='/product/details/:slug' element={<Details/>} /> 
+
+        <Route path='/dashboard' element={<ProtectUser/>} >
+          <Route path='' element={<Dashboard/>} >
+       
+          </Route> 
+        </Route>
+
       </Routes>
     </BrowserRouter>
   );
