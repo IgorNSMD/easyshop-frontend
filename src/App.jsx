@@ -16,6 +16,7 @@ import SearchProducts from './pages/SearchProducts';
 import Payment from './pages/Payment';
 import Dashboard from './pages/Dashboard';
 import ProtectUser from './utils/ProyectUser';
+import Index from './components/dashboard/Index';
 
 function App() {
   
@@ -41,7 +42,7 @@ function App() {
 
         <Route path='/dashboard' element={<ProtectUser/>} >
           <Route path='' element={<Dashboard/>} >
-       
+            <Route path='' element={<Index/>} />
           </Route> 
         </Route>
 
