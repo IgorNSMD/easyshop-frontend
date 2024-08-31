@@ -3,8 +3,9 @@ import { FaEye, FaRegHeart } from "react-icons/fa";
 import { RiShoppingCartLine } from "react-icons/ri";
 import { Link } from 'react-router-dom';
 import { useDispatch,useSelector } from 'react-redux';
+import toast from 'react-hot-toast';
 
-import { get_wishlist_products } from '../../store/reducers/cardReducer';
+import { get_wishlist_products, remove_wishlist,messageClear } from '../../store/reducers/cardReducer';
 import Rating from '../Rating';
 
 const Wishlist = () => {
@@ -16,8 +17,15 @@ const Wishlist = () => {
         dispatch(get_wishlist_products(userInfo.id))
     },[userInfo.id, dispatch])
 
+    useEffect(() => { 
+        if (successMessage) {
+            toast.success(successMessage)
+            dispatch(messageClear())  
+        }   
+    },[successMessage, dispatch])
+
     //console.log('inicial...', wishlist)
-    
+
     return (
         <div className='w-full grid grid-cols-4 md-lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 gap-6'>
             {
@@ -35,7 +43,7 @@ const Wishlist = () => {
                         <img className='sm:w-full w-full h-[240px]' src={p.image} alt="" />  
     
                         <ul className='flex transition-all duration-700 -bottom-10 justify-center items-center gap-2 absolute w-full group-hover:bottom-3'>
-                            <li className='w-[38px] h-[38px] cursor-pointer bg-white flex justify-center items-center rounded-full hover:bg-[#059473] hover:text-white hover:rotate-[720deg] transition-all'>
+                            <li onClick={() => dispatch(remove_wishlist(p._id))} className='w-[38px] h-[38px] cursor-pointer bg-white flex justify-center items-center rounded-full hover:bg-[#059473] hover:text-white hover:rotate-[720deg] transition-all'>
                                 <FaRegHeart />
                             </li>
                             <Link to={`/product/details/${p.slug}`} className='w-[38px] h-[38px] cursor-pointer bg-white flex justify-center items-center rounded-full hover:bg-[#059473] hover:text-white hover:rotate-[720deg] transition-all'>
