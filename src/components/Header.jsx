@@ -18,14 +18,12 @@ const Header = () => {
     const navigate = useNavigate()
     const {categorys} = useSelector(state => state.home) 
     const {userInfo} = useSelector(state => state.auth) 
-    const {card_product_count} = useSelector(state => state.card) 
+    const {card_product_count,wishlist_count} = useSelector(state => state.card) 
 
     const {pathname} = useLocation()
      
     const [showShidebar, setShowShidebar] = useState(true);
     const [categoryShow, setCategoryShow] = useState(true);
-    const user = false
-    const wishlist_count = 3
      
 
     const [searchValue, setSearchValue] = useState('')
@@ -76,13 +74,14 @@ const Header = () => {
                                         <li>English</li>
                                     </ul>
                                 </div>
+
                                 {
-                                    userInfo  ? 
+                                    userInfo ? 
                                     <Link className='flex cursor-pointer justify-center items-center gap-2 text-sm text-black' to='/dashboard'>
                                         <span> <FaUser/> </span>
-                                        <span>{userInfo.name}</span>
+                                        <span> {userInfo.name} </span>
                                     </Link> : 
-                                     <Link to='/login' className='flex cursor-pointer justify-center items-center gap-2 text-sm text-black'>
+                                    <Link to='/login' className='flex cursor-pointer justify-center items-center gap-2 text-sm text-black'>
                                         <span> <FaLock /> </span>
                                         <span>Login </span>
                                     </Link>
@@ -99,7 +98,7 @@ const Header = () => {
                     <div className='h-[80px] md-lg:h-[100px] flex justify-between items-center flex-wrap'>
                         <div className='md-lg:w-full w-3/12 md-lg:pt-4'>
                             <div className='flex justify-between items-center'>
-                                 <Link to='/'>
+                                <Link to='/'>
                                     <img src="http://localhost:3000/images/logo.png" alt="" />
                                 </Link>
                                 <div className='justify-center items-center w-[30px] h-[30px] bg-white text-slate-600 border border-slate-600 rounded-sm cursor-pointer lg:hidden md-lg:flex xl:hidden hidden' onClick={() => setShowShidebar(false)}>
@@ -107,6 +106,7 @@ const Header = () => {
                                 </div>
                             </div> 
                         </div>
+    
                         <div className='md:lg:w-full w-9/12'>
                             <div className='flex justify-between md-lg:justify-center items-center flex-wrap pl-8'>
                                 <ul className='flex justify-start items-start gap-8 text-sm font-bold uppercase md-lg:hidden'>
@@ -129,13 +129,14 @@ const Header = () => {
 
                                 <div className='flex md-lg:hidden justify-center items-center gap-5'>
                                     <div className='flex justify-center gap-5'>
-                                        <div onClick={redirect_card_page} className='relative flex justify-center items-center cursor-pointer w-[35px] h-[35px] rounded-full bg-[#e2e2e2]'>
+                                        <div className='relative flex justify-center items-center cursor-pointer w-[35px] h-[35px] rounded-full bg-[#e2e2e2]'>
                                             <span className='text-xl text-green-500'><FaHeart /></span>
-                                            <div className='w-[20px] h-[20px] absolute bg-red-500 rounded-full text-white flex justify-center items-center -top-[3px] -right-[5px] '>
-                                                {
-                                                    wishlist_count
-                                                }
-                                            </div>
+                                            {
+                                                wishlist_count !== 0 && 
+                                                <div className='w-[20px] h-[20px] absolute bg-red-500 rounded-full text-white flex justify-center items-center -top-[3px] -right-[5px] '>
+                                                    {wishlist_count}
+                                                </div>
+                                            }                  
                                         </div>
 
                                         <div onClick={redirect_card_page} className='relative flex justify-center items-center cursor-pointer w-[35px] h-[35px] rounded-full bg-[#e2e2e2]'>
@@ -147,7 +148,7 @@ const Header = () => {
                                                         card_product_count
                                                     }
                                                 </div> 
-                                            }
+                                            } 
                                         </div> 
                                     </div> 
                                 </div> 
@@ -182,8 +183,8 @@ const Header = () => {
                                     <span>{ userInfo.name }</span>
                                 </Link> : 
                                 <Link className='flex cursor-pointer justify-center items-center gap-2 text-sm text-black' to='/login'>
-                                    <span> <FaLock /> </span>
-                                    <span>Login </span>
+                                  <span> <FaLock /> </span>
+                                  <span>Login </span>
                                 </Link>
                             } 
                         </div>
@@ -206,6 +207,7 @@ const Header = () => {
                                 <Link className={`py-2 block ${pathname === '/contact' ?  'text-[#059473]' : 'text-slate-600' } `} >Contact Us</Link>
                             </li>
                         </ul>
+
                         <div className='flex justify-start items-center gap-4 text-black'>
                             <a href="#"><FaFacebookF /></a>
                             <a href="#"><FaTwitter /> </a>
@@ -232,6 +234,7 @@ const Header = () => {
                     </div> 
                 </div>  
             </div>
+
 
             <div className='w-[85%] lg:w-[90%] mx-auto'>
                 <div className='flex w-full flex-wrap md-lg:gap-8'>
@@ -291,9 +294,10 @@ const Header = () => {
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div>    
                 </div> 
             </div>
+          
         </div>
     );
 };
