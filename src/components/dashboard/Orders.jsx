@@ -8,14 +8,13 @@ const Orders = () => {
     const [state, setState] = useState('all')
 
     const navigate = useNavigate()
-    const dispatch = useDispatch()
-    const { orderId } = useParams()
+    const dispatch = useDispatch() 
     const {userInfo} = useSelector(state => state.auth)
     const { myOrders } = useSelector(state => state.order)
 
     useEffect(() => {
         dispatch(get_orders({status:state, customerId:userInfo.id}))
-    },[orderId, userInfo.id, state, dispatch])
+    },[userInfo.id, state, dispatch])
 
     const redirect = (ord) => {
         let items = 0;
