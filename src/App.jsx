@@ -17,6 +17,7 @@ import Payment from './pages/Payment';
 import Dashboard from './pages/Dashboard';
 import ProtectUser from './utils/ProyectUser';
 import Index from './components/dashboard/Index';
+import Orders from './components/dashboard/Orders';
 
 function App() {
   
@@ -41,8 +42,9 @@ function App() {
         <Route path='/product/details/:slug' element={<Details/>} /> 
 
         <Route path='/dashboard' element={<ProtectUser/>} >
-          <Route path='' element={<Dashboard/>} >
+          <Route path='' element={<Dashboard/>} >        
             <Route path='' element={<Index/>} />
+            <Route path='my-orders' element={<Orders/>} /> 
           </Route> 
         </Route>
 

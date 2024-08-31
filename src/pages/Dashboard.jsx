@@ -32,28 +32,28 @@ const Dashboard = () => {
                             <ul className='py-2 text-slate-600 px-4'> 
                                 
                                 <li className='flex justify-start items-center gap-2 py-2'>
-                            <span className='text-xl'><IoIosHome /></span>
-                            <Link to='/dashboard' className='block' >Dashboard </Link>
+                                    <span className='text-xl'><IoIosHome /></span>
+                                    <Link to='/dashboard' className='block' >Dashboard </Link>
                                 </li>
                                 <li className='flex justify-start items-center gap-2 py-2'>
-                            <span className='text-xl'><FaBorderAll/></span>
-                            <Link to='/dashboard' className='block' >My Orders </Link>
+                                    <span className='text-xl'><FaBorderAll/></span>
+                                    <Link to='/dashboard/my-orders' className='block' >My Orders </Link>
                                 </li>
                                 <li className='flex justify-start items-center gap-2 py-2'>
-                            <span className='text-xl'><FaHeart/></span>
-                            <Link to='/dashboard' className='block' >Wishlist </Link>
+                                    <span className='text-xl'><FaHeart/></span>
+                                    <Link to='/dashboard' className='block' >Wishlist </Link>
                                 </li>
                                 <li className='flex justify-start items-center gap-2 py-2'>
-                            <span className='text-xl'><IoChatbubbleEllipsesSharp/></span>
-                            <Link to='/dashboard' className='block' >Chat  </Link>
+                                    <span className='text-xl'><IoChatbubbleEllipsesSharp/></span>
+                                    <Link to='/dashboard' className='block' >Chat  </Link>
                                 </li>
                                 <li className='flex justify-start items-center gap-2 py-2'>
-                            <span className='text-xl'><RiLockPasswordLine/></span>
-                            <Link to='/dashboard' className='block' >Change Password  </Link>
+                                    <span className='text-xl'><RiLockPasswordLine/></span>
+                                    <Link to='/dashboard' className='block' >Change Password  </Link>
                                 </li>
                                 <li className='flex justify-start items-center gap-2 py-2'>
-                            <span className='text-xl'><IoMdLogOut/></span>
-                            <Link to='/dashboard' className='block' >Logout </Link>
+                                    <span className='text-xl'><IoMdLogOut/></span>
+                                    <Link to='/dashboard' className='block' >Logout </Link>
                                 </li> 
 
                             </ul> 
