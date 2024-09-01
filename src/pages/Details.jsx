@@ -21,7 +21,7 @@ import Header from '../components/Header';
 import Footer from '../components/Footer';
 import Reviews from '../components/Reviews';
 import { product_details } from '../store/reducers/homeReducer';
-import { add_to_card, messageClear } from '../store/reducers/cardReducer';
+import { add_to_card, messageClear, add_to_wishlist } from '../store/reducers/cardReducer';
 
 const Details = () => {
 
@@ -114,13 +114,31 @@ const Details = () => {
         }
     }
 
+    const add_wishlist = () => {
+        if (userInfo) {
+            dispatch(add_to_wishlist({
+                userId: userInfo.id,
+                productId: product._id,
+                name: product.name,
+                price: product.price,
+                image: product.images[0],
+                discount: product.discount,
+                rating: product.rating,
+                slug: product.slug
+            }))
+        } else {
+            navigate('/login')
+        }
+
+    }
+
     return (
         <div>
             <Header/>
 
             <section className='bg-[url("http://localhost:3000/images/banner/shop.png")] h-[220px] mt-6 bg-cover bg-no-repeat relative bg-left'>
                 <div className='absolute left-0 top-0 w-full h-full bg-[#2422228a]'>
-                    <div className='w-[85%] md:w-[80%] sm:w-[90%] lg:w-[90%] h-full mx-auto'>
+                    <div className='w-[85%] md:w-[80%] sm:w-[90%] lg:w-[90%] h-full mx-auto pb-16'>
                         <div className='flex flex-col justify-center gap-1 items-center h-full w-full text-white'>
                             <h2 className='text-3xl font-bold'>Product Details </h2>
                             <div className='flex justify-center items-center gap-2 text-2xl w-full'>
@@ -224,7 +242,7 @@ const Details = () => {
                             }
 
                             <div>
-                                <div className='h-[50px] w-[50px] flex justify-center items-center cursor-pointer hover:shadow-lg hover:shadow-cyan-500/40 bg-cyan-500 text-white'>
+                                <div onClick={add_wishlist} className='h-[50px] w-[50px] flex justify-center items-center cursor-pointer hover:shadow-lg hover:shadow-cyan-500/40 bg-cyan-500 text-white'>
                                     <FaHeart />
                                 </div> 
                             </div> 
