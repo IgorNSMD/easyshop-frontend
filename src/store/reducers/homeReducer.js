@@ -29,7 +29,6 @@ export const get_products = createAsyncThunk(
 )
 // End Method 
 
-
 export const price_range_product = createAsyncThunk(
     'product/price_range_product',
     async(_, { fulfillWithValue }) => {
@@ -44,13 +43,12 @@ export const price_range_product = createAsyncThunk(
 )
 // End Method 
 
-
 export const query_products = createAsyncThunk(
     'product/query_products',
     async(query , { fulfillWithValue }) => {
         try {
-            const {data} = await api.get(`/home/query-products?category=${query.category}&&rating=${query.rating}&&lowPrice=${query.low}&&highPrice=${query.high}&&sortPrice=${query.sortPrice}&&pageNumber=${query.pageNumber}&&searchValue=${query.searchValue ? query.searchValue : ''}  `)
-            //console.log('query_products->',data)
+            const {data} = await api.get(`/home/query-products?category=${query.category}&&rating=${query.rating}&&lowPrice=${query.low}&&highPrice=${query.high}&&sortPrice=${query.sortPrice}&&pageNumber=${query.pageNumber}&&searchValue=${query.searchValue ? query.searchValue : ''} `)
+            //  console.log(data)
             return fulfillWithValue(data)
         } catch (error) {
             console.log(error.respone)
@@ -59,18 +57,40 @@ export const query_products = createAsyncThunk(
 )
 // End Method 
 
+export const product_details = createAsyncThunk(
+    'product/product_details',
+    async(slug, { fulfillWithValue }) => {
+        try {
+            const {data} = await api.get(`/home/product-details/${slug}`)
+            //  console.log(data)
+            return fulfillWithValue(data)
+        } catch (error) {
+            console.log(error.respone)
+        }
+    }
+)
+// End Method 
+
+
+
+
 export const homeReducer = createSlice({
     name: 'home',
     initialState:{
         categorys : [],
         products : [],
+        totalProduct : 0,
+        parPage: 3,
         latest_product : [],
         topRated_product : [],
         discount_product : [],
         priceRange : {
             low: 0,
             high: 100
-        }
+        },
+        product: {},
+        relatedProducts: [],
+        moreProducts: []
     },
     reducers : {
  
@@ -95,6 +115,13 @@ export const homeReducer = createSlice({
             state.totalProduct = payload.totalProduct;
             state.parPage = payload.parPage; 
         })
+
+        .addCase(product_details.fulfilled, (state, { payload }) => { 
+            state.product = payload.product;
+            state.relatedProducts = payload.relatedProducts;
+            state.moreProducts = payload.moreProducts; 
+        })
+
     }
 })
 
