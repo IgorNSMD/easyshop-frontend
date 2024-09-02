@@ -1,14 +1,15 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import RatingReact from 'react-rating'
 import { FaStar } from 'react-icons/fa';
 import { CiStar } from 'react-icons/ci';
+import toast from 'react-hot-toast';
 import { useDispatch, useSelector } from 'react-redux';
 
 import Rating from './Rating';
 import RatingTemp from './RatingTemp';
 import Pagination from './Pagination';
-import { customer_review } from '../store/reducers/homeReducer';
+import { customer_review, messageClear } from '../store/reducers/homeReducer';
 
 const Reviews = ({product}) => {
 
@@ -17,6 +18,7 @@ const Reviews = ({product}) => {
     const [pageNumber, setPageNumber] = useState(10)
 
     const {userInfo } = useSelector(state => state.auth)
+    const { successMessage } = useSelector(state => state.home)
 
     const [rat, setRat] = useState('')
     const [re, setRe] = useState('')
@@ -31,6 +33,15 @@ const Reviews = ({product}) => {
         }
         dispatch(customer_review(obj))
     }
+
+    useEffect(() => { 
+        if (successMessage) {
+            toast.success(successMessage) 
+            setRat('')
+            setRe('')
+            dispatch(messageClear())
+        }  
+    },[successMessage, dispatch])
 
     return (
     <div className='mt-8'>
