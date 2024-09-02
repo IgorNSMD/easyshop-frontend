@@ -5,8 +5,9 @@ import 'react-multi-carousel/lib/styles.css'
 import { useDispatch, useSelector } from 'react-redux';
 
 const Categorys = () => {
- 
+    
     const {categorys} = useSelector(state => state.home)
+    console.log('Categorys ->',categorys)
 
     const responsive = {
         superLargeDesktop: {
