@@ -3,20 +3,34 @@ import { Link } from 'react-router-dom';
 import RatingReact from 'react-rating'
 import { FaStar } from 'react-icons/fa';
 import { CiStar } from 'react-icons/ci';
+import { useDispatch, useSelector } from 'react-redux';
 
 import Rating from './Rating';
 import RatingTemp from './RatingTemp';
 import Pagination from './Pagination';
+import { customer_review } from '../store/reducers/homeReducer';
 
+const Reviews = ({product}) => {
 
-const Reviews = () => {
-
+    const dispatch = useDispatch()
     const [parPage, setParPage] = useState(1)
     const [pageNumber, setPageNumber] = useState(10)
-    const userInfo = {}
+
+    const {userInfo } = useSelector(state => state.auth)
 
     const [rat, setRat] = useState('')
     const [re, setRe] = useState('')
+
+    const review_submit = (e) => {
+        e.preventDefault()
+        const obj = {
+            name: userInfo.name,
+            review: re,
+            rating : rat,
+            productId: product._id
+        }
+        dispatch(customer_review(obj))
+    }
 
     return (
     <div className='mt-8'>
@@ -135,8 +149,8 @@ const Reviews = () => {
                         fullSymbol={<span className='text-[#Edbb0E] text-4xl'><FaStar/></span>} 
                         /> 
                     </div> 
-                    <form>
-                        <textarea required className='border outline-0 p-3 w-full' name="" id="" cols="30" rows="5"></textarea>
+                    <form onSubmit={review_submit}>
+                        <textarea value={re} onChange={(e) => setRe(e.target.value)} required className='border outline-0 p-3 w-full' name="" id="" cols="30" rows="5"></textarea>
                         <div className='mt-2'>
                             <button className='py-1 px-5 bg-indigo-500 text-white rounded-sm'>Submit</button>
                         </div>

@@ -20,7 +20,7 @@ export const get_products = createAsyncThunk(
     async(_, { fulfillWithValue }) => {
         try {
             const {data} = await api.get('/home/get-products')
-             console.log(data)
+             //console.log(data)
             return fulfillWithValue(data)
         } catch (error) {
             console.log(error.respone)
@@ -72,7 +72,19 @@ export const product_details = createAsyncThunk(
 // End Method 
 
 
-
+export const customer_review = createAsyncThunk(
+    'review/customer_review',
+    async(info, { fulfillWithValue }) => {
+        try {
+            const {data} = await api.post('/home/customer/submit-review',info)
+            //  console.log(data)
+            return fulfillWithValue(data)
+        } catch (error) {
+            console.log(error.respone)
+        }
+    }
+)
+// End Method 
 
 export const homeReducer = createSlice({
     name: 'home',
