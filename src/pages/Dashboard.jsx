@@ -33,7 +33,7 @@ const Dashboard = () => {
                                 
                                 <li className='flex justify-start items-center gap-2 py-2'>
                                     <span className='text-xl'><IoIosHome /></span>
-                                    <Link to='/dashboard' className='block' >Dashboard </Link>
+                                    <Link to='/dashboard/chat' className='block' >Dashboard </Link>
                                 </li>
                                 <li className='flex justify-start items-center gap-2 py-2'>
                                     <span className='text-xl'><FaBorderAll/></span>
