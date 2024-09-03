@@ -5,8 +5,9 @@ export const add_friend = createAsyncThunk(
     'chat/add_friend',
     async(info, { rejectWithValue,fulfillWithValue }) => {
         try {
+            //console.log('info->',info)
             const {data} = await api.post('/chat/customer/add-customer-friend',info)
-           // console.log(data)
+            //console.log('data->',data)
             return fulfillWithValue(data)
         } catch (error) {
             return rejectWithValue(error.response.data)
@@ -35,14 +36,12 @@ export const chatReducer = createSlice({
 
     },
     extraReducers: (builder) => {
-        // builder 
-        // .addCase(customer_register.fulfilled, (state, { payload }) => {
-        //     const userInfo = decodeToken(payload.token)
-        //     state.successMessage = payload.message;
-        //     state.loader = false;
-        //     state.userInfo = userInfo
-        // })
-
+        builder 
+        .addCase(add_friend.fulfilled, (state, { payload }) => { 
+            state.fb_messages = payload.messages;
+            state.currentFd = payload.currentFd;
+            state.my_friends = payload.MyFriends;
+        })
 
     }
 })
