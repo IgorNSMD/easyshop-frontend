@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { AiOutlineMessage, AiOutlinePlus } from 'react-icons/ai'
 import { GrEmoji } from 'react-icons/gr'
 import { IoSend } from 'react-icons/io5'
@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Link, useParams } from 'react-router-dom'
 import io from 'socket.io-client'
 
-import { add_friend } from '../../store/reducers/chatReducer';
+import { add_friend, send_message } from '../../store/reducers/chatReducer';
 const socket = io('http://localhost:5000')
 
 const Chat = () => {
@@ -14,8 +14,9 @@ const Chat = () => {
     const dispatch = useDispatch()
     const {sellerId} = useParams()
     const {userInfo } = useSelector(state => state.auth)
-    const {fb_messages,currentFd,my_friends } = useSelector(state => state.chat)
-    
+    const {fb_messages, currentFd, my_friends } = useSelector(state => state.chat)
+    const [text,setText] = useState('')
+
     useEffect(() => {
         //console.log('socket...')
         socket.emit('add_user',userInfo.id, userInfo)
@@ -28,7 +29,17 @@ const Chat = () => {
         }))
     },[sellerId, userInfo.id, dispatch])
 
-    //console.log('my_friends->', my_friends)
+    const send = () => {
+        if (text) {
+            dispatch(send_message({
+                userId: userInfo.id,
+                text,
+                sellerId,
+                name: userInfo.name 
+            }))
+            setText('')
+        }
+    }
 
     return (
         <div className='bg-white p-3 rounded-md'>
@@ -86,13 +97,13 @@ const Chat = () => {
                                     <input className='hidden' type="file" />
                                 </div>
                                 <div className='border h-[40px] p-0 ml-2 w-[calc(100%-90px)] rounded-full relative'>
-                                    <input type="text" placeholder='input message' className='w-full rounded-full h-full outline-none p-3' />
+                                    <input value={text} onChange={(e) => setText(e.target.value)} type="text" placeholder='input message' className='w-full rounded-full h-full outline-none p-3' />
                                     <div className='text-2xl right-2 top-2 absolute cursor-auto'>
                                         <span><GrEmoji /></span>
                                     </div>
                                 </div>
                                 <div className='w-[40px] p-2 justify-center items-center rounded-full'>
-                                    <div className='text-2xl cursor-pointer'>
+                                    <div  onClick={send} className='text-2xl cursor-pointer'>
                                         <IoSend />
                                     </div>
                                 </div>
