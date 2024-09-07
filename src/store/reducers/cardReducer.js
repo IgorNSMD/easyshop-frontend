@@ -1,5 +1,4 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-
 import api from "../../api/api"; 
 
 export const add_to_card = createAsyncThunk(
@@ -59,6 +58,7 @@ export const quantity_inc = createAsyncThunk(
 )
 // End Method 
 
+
 export const quantity_dec = createAsyncThunk(
     'card/quantity_dec',
     async(card_id, { rejectWithValue,fulfillWithValue }) => {
@@ -72,6 +72,7 @@ export const quantity_dec = createAsyncThunk(
     }
 )
 // End Method 
+
 
 export const add_to_wishlist = createAsyncThunk(
     'wishlist/add_to_wishlist',
@@ -92,7 +93,7 @@ export const get_wishlist_products = createAsyncThunk(
     async(userId, { rejectWithValue,fulfillWithValue }) => {
         try {
             const {data} = await api.get(`/home/product/get-wishlist-products/${userId}`) 
-            //console.log(data)
+            // console.log(data)
             return fulfillWithValue(data)
         } catch (error) {
             return rejectWithValue(error.response.data)
@@ -100,6 +101,7 @@ export const get_wishlist_products = createAsyncThunk(
     }
 )
 // End Method 
+
 
 export const remove_wishlist = createAsyncThunk(
     'wishlist/remove_wishlist',
@@ -114,6 +116,7 @@ export const remove_wishlist = createAsyncThunk(
     }
 )
 // End Method 
+
 
 export const cardReducer = createSlice({
     name: 'card',
@@ -134,6 +137,10 @@ export const cardReducer = createSlice({
         messageClear : (state,_) => {
             state.errorMessage = ""
             state.successMessage = ""
+        },
+        reset_count: (state,_) => {
+            state.card_product_count = 0
+            state.wishlist_count = 0
         }
  
     },
@@ -160,11 +167,9 @@ export const cardReducer = createSlice({
         .addCase(delete_card_product.fulfilled, (state, { payload }) => { 
             state.successMessage = payload.message;  
         })
-
         .addCase(quantity_inc.fulfilled, (state, { payload }) => { 
             state.successMessage = payload.message;  
         })
-
         .addCase(quantity_dec.fulfilled, (state, { payload }) => { 
             state.successMessage = payload.message;  
         })
@@ -175,7 +180,7 @@ export const cardReducer = createSlice({
         .addCase(add_to_wishlist.fulfilled, (state, { payload }) => { 
             state.successMessage = payload.message; 
             state.wishlist_count = state.wishlist_count > 0 ? state.wishlist_count + 1 : 1   
-
+            
         })
 
         .addCase(get_wishlist_products.fulfilled, (state, { payload }) => { 
@@ -191,5 +196,5 @@ export const cardReducer = createSlice({
         
     }
 })
-export const {messageClear} = cardReducer.actions
+export const {messageClear,reset_count} = cardReducer.actions
 export default cardReducer.reducer

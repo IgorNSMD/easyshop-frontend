@@ -1,12 +1,18 @@
 import React, { useState } from 'react';
 import { FaList } from 'react-icons/fa';
-import { Link, Outlet } from 'react-router-dom';
+import { Link, Outlet, useNavigate } from 'react-router-dom';
 import { IoIosHome } from "react-icons/io";
 import { FaBorderAll } from "react-icons/fa6";
 import { FaHeart } from "react-icons/fa";
 import { IoChatbubbleEllipsesSharp } from "react-icons/io5";
 import { IoMdLogOut } from "react-icons/io";
 import { RiLockPasswordLine } from "react-icons/ri";
+import { useDispatch } from 'react-redux';
+
+import api from '../api/api';
+
+import { user_reset } from '../store/reducers/authReducer'
+import { reset_count } from '../store/reducers/cardReducer'
 
 import Header from '../components/Header';
 import Footer from '../components/Footer';
@@ -14,6 +20,22 @@ import Footer from '../components/Footer';
 
 const Dashboard = () => {
     const [filterShow, setFilterShow] =  useState(false)
+
+    const navigate = useNavigate()
+    const dispatch = useDispatch()
+
+    const logout = async () => {
+        try {
+            const {data} = await api.get('/customer/logout')
+            localStorage.removeItem('customerToken')
+            dispatch(user_reset())
+            dispatch(reset_count())
+            navigate('/login')
+            
+        } catch (error) {
+            console.log(error.response.data)
+        }
+    }
 
     return (
         <div>
@@ -28,9 +50,7 @@ const Dashboard = () => {
                 <div className='h-full mx-auto'>
                     <div className='py-5 flex md-lg:w-[90%] mx-auto relative'>
                         <div className={`rounded-md z-50 md-lg:absolute ${filterShow ? '-left-4' : '-left-[360px]'} w-[270px] ml-4 bg-white`}>
-
                             <ul className='py-2 text-slate-600 px-4'> 
-                                
                                 <li className='flex justify-start items-center gap-2 py-2'>
                                     <span className='text-xl'><IoIosHome /></span>
                                     <Link to='/dashboard' className='block' >Dashboard </Link>
@@ -51,11 +71,10 @@ const Dashboard = () => {
                                     <span className='text-xl'><RiLockPasswordLine/></span>
                                     <Link to='/dashboard/change-password' className='block' >Change Password  </Link>
                                 </li>
-                                <li className='flex justify-start items-center gap-2 py-2'>
+                                <li onClick={logout} className='flex justify-start items-center gap-2 py-2'>
                                     <span className='text-xl'><IoMdLogOut/></span>
-                                    <Link to='/dashboard' className='block' >Logout </Link>
+                                    <div  className='block' >Logout </div>
                                 </li> 
-
                             </ul> 
                         </div>
 
@@ -64,7 +83,6 @@ const Dashboard = () => {
                                 <Outlet/>
                             </div>
                         </div>
-                
                     </div>
                 </div>        
            </div>
