@@ -16,12 +16,16 @@ const Chat = () => {
     const {userInfo } = useSelector(state => state.auth)
     const {fb_messages,currentFd,my_friends,successMessage } = useSelector(state => state.chat)
     const [text,setText] = useState('')
+    const [receverMessage,setReceverMessage] = useState('')
+    const [activeSeller,setActiveSeller] = useState([])
     
+
     useEffect(() => {
         socket.emit('add_user',userInfo.id, userInfo)
     },[userInfo])
 
     useEffect(() => {
+        //console.log('sellerId--', sellerId)
         dispatch(add_friend({
             sellerId: sellerId || "",
             userId: userInfo.id
@@ -40,6 +44,15 @@ const Chat = () => {
         }
     }
 
+    useEffect(() => {
+        socket.on('seller_message', msg => {
+            setReceverMessage(msg)
+        })
+        socket.on('activeSeller', (sellers) => {
+            setActiveSeller(sellers)
+        })
+    },[])
+
     return (
         <div className='bg-white p-3 rounded-md'>
             <div className='w-full flex'>
@@ -53,9 +66,9 @@ const Chat = () => {
                             my_friends.map((f,i) => 
                             <Link to={`/dashboard/chat/${f.fdId}`} key={i}  className={`flex gap-2 justify-start items-center pl-2 py-[5px]`} >
                                 <div className='w-[30px] h-[30px] rounded-full relative'>
-                                    <div className='w-[10px] h-[10px] rounded-full bg-green-500 absolute right-0 bottom-0'>
-
-                                    </div>
+                                    {
+                                        activeSeller.some(c => c.sellerId === f.fdId ) && <div className='w-[10px] h-[10px] rounded-full bg-green-500 absolute right-0 bottom-0'></div> 
+                                    } 
                     
                                     <img src={f.image} alt="" />
                                 </div>
@@ -70,9 +83,9 @@ const Chat = () => {
                         <div className='w-full h-full'>
                             <div className='flex justify-start gap-3 items-center text-slate-600 text-xl h-[50px]'>
                                 <div className='w-[30px] h-[30px] rounded-full relative'>
-                                    <div className='w-[10px] h-[10px] rounded-full bg-green-500 absolute right-0 bottom-0'>
-
-                                    </div>
+                                    {
+                                        activeSeller.some(c => c.sellerId === currentFd.fdId) && <div className='w-[10px] h-[10px] rounded-full bg-green-500 absolute right-0 bottom-0'></div>
+                                    }
                         
                                     <img src={currentFd.image} />
                                 </div>
