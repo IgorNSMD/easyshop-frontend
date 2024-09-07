@@ -2,11 +2,12 @@ import React, { useEffect, useState } from 'react';
 import { AiOutlineMessage, AiOutlinePlus } from 'react-icons/ai'
 import { GrEmoji } from 'react-icons/gr'
 import { IoSend } from 'react-icons/io5'
+import toast from 'react-hot-toast';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useParams } from 'react-router-dom'
 import io from 'socket.io-client'
 
-import { add_friend, send_message } from '../../store/reducers/chatReducer';
+import { add_friend, messageClear, send_message,updateMessage } from '../../store/reducers/chatReducer';
 const socket = io('http://localhost:5000')
 
 const Chat = () => {
@@ -52,6 +53,18 @@ const Chat = () => {
             setActiveSeller(sellers)
         })
     },[])
+
+    useEffect(() => {
+        if (receverMessage) {
+            if (sellerId === receverMessage.senderId && userInfo.id === receverMessage.receverId) {
+                dispatch(updateMessage(receverMessage))
+            } else {
+                toast.success(receverMessage.senderName + " " + "Send A message")
+                dispatch(messageClear())
+            }
+        }
+
+    },[ receverMessage, sellerId, userInfo.id, dispatch])
 
     return (
         <div className='bg-white p-3 rounded-md'>
