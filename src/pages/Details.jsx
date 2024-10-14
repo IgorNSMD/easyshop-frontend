@@ -52,10 +52,10 @@ const Details = () => {
     },[ successMessage, errorMessage, dispatch])
 
 
-    const images = [1,2,3,4,5,6]
+    //const images = [1,2,3,4,5,6]
     const [image, setImage] = useState('')
-    const discount = 10
-    const stock = 3
+    //const discount = 10
+    //const stock = 3
     const [state, setState] = useState('reviews')
 
     const responsive = {
@@ -300,16 +300,16 @@ const Details = () => {
 
                                 <ul className='flex justify-start items-center gap-3'>
                                     <li>
-                                        <a className='w-[38px] h-[38px] hover:bg-[#059473] hover:text-white flex justify-center items-center bg-indigo-500 rounded-full text-white' href="#"> <FaFacebookF /> </a>
+                                        <button className='w-[38px] h-[38px] hover:bg-[#059473] hover:text-white flex justify-center items-center bg-indigo-500 rounded-full text-white'> <FaFacebookF /> </button>
                                     </li>
                                     <li>
-                                        <a className='w-[38px] h-[38px] hover:bg-[#059473] hover:text-white flex justify-center items-center bg-cyan-500 rounded-full text-white' href="#"> <FaTwitter /> </a>
+                                        <button className='w-[38px] h-[38px] hover:bg-[#059473] hover:text-white flex justify-center items-center bg-cyan-500 rounded-full text-white' > <FaTwitter /> </button>
                                     </li>
                                     <li>
-                                        <a className='w-[38px] h-[38px] hover:bg-[#059473] hover:text-white flex justify-center items-center bg-purple-500 rounded-full text-white' href="#"> <FaLinkedin /> </a>
+                                        <button className='w-[38px] h-[38px] hover:bg-[#059473] hover:text-white flex justify-center items-center bg-purple-500 rounded-full text-white' > <FaLinkedin /> </button>
                                     </li>
                                     <li>
-                                        <a className='w-[38px] h-[38px] hover:bg-[#059473] hover:text-white flex justify-center items-center bg-blue-500 rounded-full text-white' href="#"> <FaGithub /> </a>
+                                        <button className='w-[38px] h-[38px] hover:bg-[#059473] hover:text-white flex justify-center items-center bg-blue-500 rounded-full text-white' > <FaGithub /> </button>
                                     </li>
                                 </ul> 
                             </div>

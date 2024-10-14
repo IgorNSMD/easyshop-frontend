@@ -16,7 +16,7 @@ const Reviews = ({product}) => {
     //console.log('product->', product)
 
     const dispatch = useDispatch()
-    const [parPage, setParPage] = useState(10)
+    const [parPage] = useState(10)
     const [pageNumber, setPageNumber] = useState(1)
 
     const {userInfo } = useSelector(state => state.auth)
@@ -48,7 +48,7 @@ const Reviews = ({product}) => {
             setRe('')
             dispatch(messageClear())
         }  
-    },[successMessage, pageNumber, product._id, dispatch])
+    },[successMessage, pageNumber, product._id, product.slug, dispatch])
 
     useEffect(() => {
         if (product._id) {

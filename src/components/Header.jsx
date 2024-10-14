@@ -74,10 +74,10 @@ const Header = () => {
                         <div>
                             <div className='flex justify-center items-center gap-10'>
                                 <div className='flex justify-center items-center gap-4 text-black'>
-                                    <a href="#"><FaFacebookF /></a>
-                                    <a href="#"><FaTwitter /> </a>
-                                    <a href="#"><FaLinkedin /></a>
-                                    <a href="#"><FaGithub /> </a> 
+                                    <button><FaFacebookF /></button>
+                                    <button><FaTwitter /> </button>
+                                    <button><FaLinkedin /></button>
+                                    <button><FaGithub /> </button> 
                                 </div>
                                 <div className='flex group cursor-pointer text-slate-800 text-sm justify-center items-center gap-1 relative after:h-[18px] after:w-[1px] after:bg-[#afafaf] after:-right-[16px] after:absolute before:absolute before:h-[18px] before:bg-[#afafaf] before:w-[1px] before:-left-[20px]'>
                                     <img src={`${baseURL}/images/language.png`} alt="" />

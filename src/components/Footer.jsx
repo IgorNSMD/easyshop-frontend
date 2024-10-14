@@ -87,19 +87,19 @@ const Footer = () => {
                         </div> 
                         <ul className='flex justify-start items-center gap-3'>
                             <li>
-                                <a className='w-[38px] h-[38px] hover:bg-[#059473] hover:text-white flex justify-center items-center bg-white rounded-full' href="#"><FaFacebookF/> </a>
+                                <button className='w-[38px] h-[38px] hover:bg-[#059473] hover:text-white flex justify-center items-center bg-white rounded-full'><FaFacebookF/> </button>
                             </li>
 
                             <li>
-                                <a className='w-[38px] h-[38px] hover:bg-[#059473] hover:text-white flex justify-center items-center bg-white rounded-full' href="#"><FaTwitter/> </a>
+                                <button className='w-[38px] h-[38px] hover:bg-[#059473] hover:text-white flex justify-center items-center bg-white rounded-full'><FaTwitter/> </button>
                             </li>
 
                             <li>
-                                <a className='w-[38px] h-[38px] hover:bg-[#059473] hover:text-white flex justify-center items-center bg-white rounded-full' href="#"><FaLinkedin/> </a>
+                                <button className='w-[38px] h-[38px] hover:bg-[#059473] hover:text-white flex justify-center items-center bg-white rounded-full'><FaLinkedin/> </button>
                             </li>
 
                             <li>
-                                <a className='w-[38px] h-[38px] hover:bg-[#059473] hover:text-white flex justify-center items-center bg-white rounded-full' href="#"><FaGithub/> </a>
+                                <button className='w-[38px] h-[38px] hover:bg-[#059473] hover:text-white flex justify-center items-center bg-white rounded-full'><FaGithub/> </button>
                             </li>
                         </ul>
                     </div> 

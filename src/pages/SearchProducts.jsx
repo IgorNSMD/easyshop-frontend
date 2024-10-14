@@ -21,13 +21,13 @@ const SearchProducts = () => {
     ? process.env.REACT_APP_BASE_URL_SERVER
     : process.env.REACT_APP_BASE_URL_LOCAL
 
-    let [searchParams, setSearchParams] = useSearchParams()
+    let [searchParams ] = useSearchParams()
     const category = searchParams.get('category')
     const searchValue = searchParams.get('value')
      
 
     const dispatch = useDispatch()
-    const {products,categorys,priceRange,latest_product,totalProduct,parPage} = useSelector(state => state.home)
+    const {products,priceRange,latest_product,totalProduct,parPage} = useSelector(state => state.home)
 
     useEffect(() => { 
         dispatch(price_range_product())

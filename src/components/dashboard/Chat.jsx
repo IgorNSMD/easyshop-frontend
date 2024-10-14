@@ -10,7 +10,12 @@ import {FaList} from 'react-icons/fa'
 
 import { add_friend, messageClear, send_message,updateMessage } from '../../store/reducers/chatReducer';
 
-const socket = io('http://localhost:5000')
+let baseBACKEND = process.env.REACT_APP_ENV === 'production'
+? process.env.REACT_APP_API_BACKEND_SERVER
+: process.env.REACT_APP_API_BACKEND_LOCAL
+
+
+const socket = io(baseBACKEND) //io('http://localhost:5000')
 
 const Chat = () => {
 
@@ -118,7 +123,7 @@ const Chat = () => {
                                         {
                                             activeSeller.some(c => c.sellerId === currentFd.fdId) && <div className='w-[10px] h-[10px] rounded-full bg-green-500 absolute right-0 bottom-0'></div>
                                         } 
-                                        <img src={currentFd.image} />
+                                        <img src={currentFd.image} alt="" />
                                     </div>
                                     <span>{currentFd.name}</span>
                                 </div> 

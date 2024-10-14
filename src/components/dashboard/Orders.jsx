@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link, useNavigate, useParams } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 import { get_orders } from '../../store/reducers/orderReducer';
 
@@ -59,17 +59,17 @@ const Orders = () => {
                             {
                                 myOrders.map((o,i) => 
                                 <tr className='bg-white border-b'>
-                                    <td scope='row' className='px-6 py-4 font-medium whitespace-nowrap'>#{o._id}</td>
-                                    <td scope='row' className='px-6 py-4 font-medium whitespace-nowrap'>${o.price}</td>
-                                    <td scope='row' className='px-6 py-4 font-medium whitespace-nowrap'>{o.payment_status }</td>
-                                    <td scope='row' className='px-6 py-4 font-medium whitespace-nowrap'>{o.delivery_status}</td>
-                                    <td scope='row' className='px-6 py-4 font-medium whitespace-nowrap'>
+                                    <th scope='row' className='px-6 py-4 font-medium whitespace-nowrap'>#{o._id}</th>
+                                    <th scope='row' className='px-6 py-4 font-medium whitespace-nowrap'>${o.price}</th>
+                                    <th scope='row' className='px-6 py-4 font-medium whitespace-nowrap'>{o.payment_status }</th>
+                                    <th scope='row' className='px-6 py-4 font-medium whitespace-nowrap'>{o.delivery_status}</th>
+                                    <th scope='row' className='px-6 py-4 font-medium whitespace-nowrap'>
                                         <Link to={`/dashboard/order/details/${o._id}`}><span className='bg-green-200 text-green-800 text-md font-semibold mr-2 px-3 py-[2px] rounded'>View</span></Link>
 
                                         {
                                         o.payment_status !== 'paid' && <span onClick={() => redirect(o)} className='bg-green-200 text-green-800 text-md font-semibold mr-2 px-3 py-[2px] rounded cursor-pointer'>Pay Now</span> 
                                         }
-                                    </td> 
+                                    </th> 
                                 </tr>
                                 
                                 )

@@ -21,12 +21,12 @@ const CategoryShop = () => {
     ? process.env.REACT_APP_BASE_URL_SERVER
     : process.env.REACT_APP_BASE_URL_LOCAL
 
-    let [searchParams, setSearchParams] = useSearchParams()
+    let [searchParams] = useSearchParams()
     const category = searchParams.get('category')
     //console.log(category)
 
     const dispatch = useDispatch()
-    const {products,categorys,priceRange,latest_product,totalProduct,parPage} = useSelector(state => state.home)
+    const {products,priceRange,latest_product,totalProduct,parPage} = useSelector(state => state.home)
 
     useEffect(() => { 
         dispatch(price_range_product())
