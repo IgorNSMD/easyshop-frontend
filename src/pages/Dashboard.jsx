@@ -9,7 +9,7 @@ import { IoMdLogOut } from "react-icons/io";
 import { RiLockPasswordLine } from "react-icons/ri";
 import { useDispatch } from 'react-redux';
 
-import api from '../api/api';
+//import api from '../api/api';
 
 import { user_reset } from '../store/reducers/authReducer'
 import { reset_count } from '../store/reducers/cardReducer'

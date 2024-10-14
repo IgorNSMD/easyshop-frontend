@@ -222,10 +222,10 @@ const Header = () => {
                         </ul>
 
                         <div className='flex justify-start items-center gap-4 text-black'>
-                            <a href="#"><FaFacebookF /></a>
-                            <a href="#"><FaTwitter /> </a>
-                            <a href="#"><FaLinkedin /></a>
-                            <a href="#"><FaGithub /> </a> 
+                            <button><FaFacebookF /></button>
+                            <button><FaTwitter /> </button>
+                            <button><FaLinkedin /></button>
+                            <button><FaGithub /> </button> 
                         </div>
 
                         <div className='w-full flex justify-end md-lg:justify-start gap-3 items-center'>
