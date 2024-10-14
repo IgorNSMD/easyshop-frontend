@@ -24,6 +24,9 @@ import { product_details } from '../store/reducers/homeReducer';
 import { add_to_card, messageClear, add_to_wishlist } from '../store/reducers/cardReducer';
 
 const Details = () => {
+    const baseURL = process.env.REACT_APP_ENV === 'production'
+    ? process.env.REACT_APP_BASE_URL_SERVER
+    : process.env.REACT_APP_BASE_URL_LOCAL
 
     const navigate = useNavigate()
     const {slug} = useParams()
@@ -168,7 +171,13 @@ const Details = () => {
         <div>
             <Header/>
 
-            <section className='bg-[url("http://localhost:3000/images/banner/shop.png")] h-[220px] mt-6 bg-cover bg-no-repeat relative bg-left'>
+            <section
+                style={{
+                    backgroundImage: `url("${baseURL}/images/banner/shop.png")`
+                }}  
+                className='h-[220px] mt-6 bg-cover bg-no-repeat relative bg-left'
+                >
+
                 <div className='absolute left-0 top-0 w-full h-full bg-[#2422228a]'>
                     <div className='w-[85%] md:w-[80%] sm:w-[90%] lg:w-[90%] h-full mx-auto pb-16'>
                         <div className='flex flex-col justify-center gap-1 items-center h-full w-full text-white'>
@@ -204,7 +213,6 @@ const Details = () => {
                     <div className='grid grid-cols-2 md-lg:grid-cols-1 gap-8'>
                         <div>
                             <div className='p-5 border'>
-                                {/* <img className='h-[400px] w-full' src={image ? `http://localhost:3000/images/products/${image}.webp` : `http://localhost:3000/images/products/${images[2]}.webp`} alt="" /> */}
                                 <img className='h-[400px] w-full' src={image ? image : product.images?.[0] } alt="" />
                             </div>
                             <div className='py-3'>
@@ -220,7 +228,6 @@ const Details = () => {
                                         product.images.map((img, i) => {
                                             return (
                                                 <div key={i}  onClick={() => setImage(img)}>
-                                                    {/* <img className='h-[120px] cursor-pointer' src={`http://localhost:3000/images/products/${img}.webp`} alt="" />  */}
                                                     <img className='h-[120px] cursor-pointer' src={img} alt="" /> 
                                                 </div>
                                             )

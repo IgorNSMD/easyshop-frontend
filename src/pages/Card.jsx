@@ -10,6 +10,9 @@ import { get_card_products,delete_card_product,messageClear,
         quantity_inc, quantity_dec } from '../store/reducers/cardReducer';
 
 const Card = () => {
+    const baseURL = process.env.REACT_APP_ENV === 'production'
+    ? process.env.REACT_APP_BASE_URL_SERVER
+    : process.env.REACT_APP_BASE_URL_LOCAL
 
     const dispatch = useDispatch()
     const {userInfo} = useSelector(state => state.auth) 
@@ -58,7 +61,12 @@ const Card = () => {
     return (
         <div>
            <Header/>
-           <section className='bg-[url("http://localhost:3000/images/banner/shop.png")] h-[220px] mt-6 bg-cover bg-no-repeat relative bg-left'>
+           <section 
+                style={{
+                    backgroundImage: `url("${baseURL}/images/banner/shop.png")`
+                }} 
+                className='h-[220px] mt-6 bg-cover bg-no-repeat relative bg-left'
+                >
                 <div className='absolute left-0 top-0 w-full h-full bg-[#2422228a]'>
                     <div className='w-[85%] md:w-[80%] sm:w-[90%] lg:w-[90%] h-full mx-auto'>
                         <div className='flex flex-col justify-center gap-1 items-center h-full w-full text-white'>

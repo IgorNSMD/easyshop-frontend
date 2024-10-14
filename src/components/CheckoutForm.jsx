@@ -2,6 +2,9 @@ import React, { useState } from 'react';
 import { PaymentElement,LinkAuthenticationElement,useStripe,useElements } from '@stripe/react-stripe-js' 
 
 const CheckoutForm = ({orderId}) => {
+    const baseURL = process.env.REACT_APP_ENV === 'production'
+    ? process.env.REACT_APP_BASE_URL_SERVER
+    : process.env.REACT_APP_BASE_URL_LOCAL
 
     localStorage.setItem('orderId',orderId)
     const stripe = useStripe()
@@ -10,7 +13,7 @@ const CheckoutForm = ({orderId}) => {
     const [isLoading, setIsLoading] = useState(false)
 
     const paymentElementOptions = {
-        loyout: 'tabs'
+        layout: 'tabs' // Corregido: 'loyout' → 'layout'
     }
 
     const submit = async (e) => {
@@ -22,7 +25,7 @@ const CheckoutForm = ({orderId}) => {
         const { error } = await stripe.confirmPayment({
             elements,
             confirmParams: {
-                return_url: 'http://localhost:3000/order/confirm'
+                return_url: `${baseURL}/order/confirm`
             } 
         })
         if (error.type === 'card_error' || error.type === 'validation_error') {
